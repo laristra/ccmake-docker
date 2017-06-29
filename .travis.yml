@@ -3,7 +3,7 @@ language: c
 sudo: required
 
 services:
-- docker
+  - docker
 
 script:
   - cp -vr docker ${HOME}/docker
