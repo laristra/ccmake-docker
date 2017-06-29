@@ -6,10 +6,10 @@ services:
   - docker
 
 script:
-  - cp -vr Dockerfile ${HOME}/Dockerfile
-  - mv -v ${TRAVIS_REPO_SLUG} $HOME/Dockerfile/git-src
-  - cp -r $HOME/.ccache ${HOME}/Dockerfile/ccache
-  - cp -r $HOME/.sonar ${HOME}/Dockerfile/sonar
+  - cp -vr docker ${HOME}/docker
+  - mv -v ${TRAVIS_REPO_SLUG} $HOME/docker/git-src
+  - cp -r $HOME/.ccache ${HOME}/docker/ccache
+  - cp -r $HOME/.sonar ${HOME}/docker/sonar
   - docker build --build-arg COVERAGE=${COVERAGE}
                 --build-arg CC=${CC} --build-arg CXX=${CXX}
                 --build-arg SONARQUBE_GITHUB_TOKEN=${SONARQUBE_GITHUB_TOKEN}
@@ -19,7 +19,7 @@ script:
                 --build-arg TRAVIS_TAG=${TRAVIS_TAG} --build-arg TRAVIS_REPO_SLUG=${TRAVIS_REPO_SLUG}
                 --build-arg CI=${CI} --build-arg TRAVIS=${TRAVIS} --build-arg TRAVIS_OS_NAME=${DISTRO}
                 --build-arg TRAVIS_COMMIT=${TRAVIS_COMMIT}
-                -t ${TRAVIS_REPO_SLUG}:latest ${HOME}/Dockerfile/ &&
+                -t ${TRAVIS_REPO_SLUG}:latest ${HOME}/docker/ &&
     rm -rf ${HOME}/.ccache &&
     CON=$(docker run -d ${TRAVIS_REPO_SLUG}:latest /bin/bash) &&
     docker cp ${CON}:/home/user/.ccache ${HOME}/ &&
@@ -31,13 +31,13 @@ after_success:
       if [[ ${CC} == gcc ]]; then docker push "${TRAVIS_REPO_SLUG}:latest"; fi;
     fi
   - if [[ ${DISTRO} = ${COVERAGE} && ${CC} = gcc ]]; then
-      cd $HOME/Dockerfile/git-src;
+      cd $HOME/docker/git-src;
       git fetch origin gh-pages && git checkout -b gh-pages FETCH_HEAD;
       docker cp ${CON}:/home/user/git-src/build/doc/html . ;
       mv html/* .;
       rmdir html; 
       git add --all;
-      if [[ ${TRAVIS_BRANCH} = master && ${TRAVIS_PULL_REQUEST} == false ]]; then
+      if [[ ${TRAVIS_BRANCH} = master && ${encrypted_2cc9b7dfce26_key} && ${encrypted_2cc9b7dfce26_iv} && ${TRAVIS_PULL_REQUEST} == false ]]; then
         git config --global user.name "Automatic Deployment (Travis CI)";
         git config --global user.email "abc@abc.com";
         git commit -m "Documentation Update";
@@ -55,4 +55,4 @@ cache:
 
 compiler:
   - gcc
-  - clang
+- clang
