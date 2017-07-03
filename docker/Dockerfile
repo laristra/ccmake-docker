@@ -39,7 +39,7 @@ RUN ${SONARQUBE:+build-wrapper-linux-x86-64 --out-dir bw-output} make VERBOSE=1 
 RUN ccache -s
 RUN make test
 RUN make install DESTDIR=${PWD}
-RUN make doxygen
+RUN make html
 RUN cd .. && if [ ${COVERAGE} ]; then \
    python -m coverxygen --xml-dir build/xml/ --src-dir . --output doxygen.coverage.info; \
    wget -O codecov.sh https://codecov.io/bash; \
