@@ -1,6 +1,7 @@
 FROM laurelmcintyre/buildenv:fedora
-#see the Dockerfiles in laurelmcintyre/buildenv
+#see laurelmcintyre/buildenv
 
+#arguments passed from travis
 ARG COVERAGE
 ARG SONARQUBE
 ARG SONARQUBE_TOKEN
@@ -78,4 +79,3 @@ USER root
 RUN make install
 USER user
 WORKDIR /home/user
-
