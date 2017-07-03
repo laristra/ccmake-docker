@@ -41,10 +41,10 @@ RUN make test
 RUN make install DESTDIR=${PWD}
 RUN make doxygen
 RUN cd .. && if [ ${COVERAGE} ]; then \
-   python -m coverxygen --xml-dir build/doc/xml/ --src-dir . --output doxygen.coverage.info; \
+   python -m coverxygen --xml-dir build/xml/ --src-dir . --output doxygen.coverage.info; \
    wget -O codecov.sh https://codecov.io/bash; \
    bash codecov.sh -X gcov -f doxygen.coverage.info -F documentation; \
-   doxy-coverage build/doc/xml/; \
+   doxy-coverage build/xml/; \
   if [ ${CC} = clang ]; then \
     $HOME/.local/bin/codecov -F ${CC} --gcov-exec "llvm-cov gcov"; \
   else \
@@ -63,7 +63,7 @@ RUN cd .. && if [ ${SONARQUBE} ]; then \
     -Dsonar.links.scm=https://github.com/${TRAVIS_REPO_SLUG} \
     -Dsonar.links.issue=https://github.com/${TRAVIS_REPO_SLUG}/issues \
     -Dsonar.sources=. \
-    -Dsonar.exclusions=build/CMakeFiles/**,build/doc/**,tests/** \
+    -Dsonar.exclusions=build/CMakeFiles/**,build/html/**,build/xml/**,tests/** \
     -Dsonar.cfamily.build-wrapper-output=build/bw-output \
     -Dsonar.host.url=https://sonarqube.com \
     -Dsonar.cfamily.gcov.reportsPath=. \
