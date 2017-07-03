@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (helloworld)
 add_executable(helloworld helloworld.c)
+install(TARGETS helloworld DESTINATION bin)
 
 option(ENABLE_COVERAGE_BUILD "Do a coverage build" ON)
 if(ENABLE_COVERAGE_BUILD)
