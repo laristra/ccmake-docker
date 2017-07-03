@@ -44,7 +44,6 @@ RUN cd .. && if [ ${COVERAGE} ]; then \
    python -m coverxygen --xml-dir build/xml/ --src-dir . --output doxygen.coverage.info; \
    wget -O codecov.sh https://codecov.io/bash; \
    bash codecov.sh -X gcov -f doxygen.coverage.info -F documentation; \
-   doxy-coverage build/xml/; \
   if [ ${CC} = clang ]; then \
     $HOME/.local/bin/codecov -F ${CC} --gcov-exec "llvm-cov gcov"; \
   else \
