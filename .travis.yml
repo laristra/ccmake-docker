@@ -44,7 +44,7 @@ after_success:
   - if [[ ${DISTRO} = fedora && ${COVERAGE} && ${CC} = gcc ]]; then
       cd $HOME/docker/git-src;
       git fetch origin gh-pages && git checkout -b gh-pages FETCH_HEAD;
-      docker cp ${CON}:/home/user/git-src/build/doc/html . ;
+      docker cp ${CON}:/home/user/git-src/build/html . ;
       mv html/* .;
       rmdir html; 
       git add --all;
