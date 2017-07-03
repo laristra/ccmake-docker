@@ -68,4 +68,3 @@ cache:
 compiler:
   - gcc
   - clang
-
