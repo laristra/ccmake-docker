@@ -14,6 +14,7 @@ if(ENABLE_COVERAGE_BUILD)
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
 endif()
 
+#run doxygen from cmake instead of travis
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/html/index.html
