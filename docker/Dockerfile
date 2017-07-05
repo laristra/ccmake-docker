@@ -29,6 +29,7 @@ USER root
 RUN chown -R user:user /home/user/git-src /home/user/.ccache /home/user/.sonar
 USER user
 
+#navigate to git-src, then make directory called build
 WORKDIR /home/user/git-src
 RUN mkdir build
 
